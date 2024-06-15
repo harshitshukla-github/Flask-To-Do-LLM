@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do App</title>
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <h1>Todo List App</h1>
+  </header>
+
+  <form method="POST" action="{{ url_for('add_task') }}">
+    <input type="text" name="task" class="todo-input" placeholder="Add a new task...">
+    <button class="todo-button" type="submit">
+      <i class="fas fa-plus"></i>
+    </button>
+
+    <div class="select">
+      <select name="filter" class="filter-todo">
+        <option value="all">All</option>
+        <option value="completed">Completed</option>
+        <option value="uncompleted">To-Do</option>
+      </select>
+    </div>
+  </form>
+
+  <div class="todo-container">
+    <ul class="todo-list">
+      {% for task in tasks %}
+      <li class="todo {% if task.completed %}completed{% endif %}" data-id="{{ task.id }}">
+        <span class="todo-item">{{ task.title }}</span>
+        <div class="todo-buttons">
+          <button class="complete-btn"><i class="fas fa-check"></i></button>
+          <button class="delete-btn"><i class="fas fa-trash"></i></button>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <script src="https://kit.fontawesome.com/e9472486a9.js" crossorigin="anonymous"></script>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>
+
+
